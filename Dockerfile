@@ -8,8 +8,8 @@ RUN npm install
 COPY . .
 
 ARG PANDASCORE_TOKEN
-ARG PORT
-ARG NODE_ENV
+ENV PORT=7000
+ENV NODE_ENV=production
 
 # Compile les fichiers TypeScript
 RUN npm run build

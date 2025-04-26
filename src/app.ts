@@ -1,13 +1,18 @@
-import express, {Request, Response} from 'express';
-import { errorHandler } from '@middlewares/exceptions.handler';
+import express from 'express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import {errorHandler} from '@middlewares/exceptions.handler';
+import nantesRoutes from "@routes/nantesRoutes";
+import {swaggerConfig} from "~/config";
 
 const app = express();
+const swaggerSpec = swaggerJsdoc(swaggerConfig);
 
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Welcome to the RESTful API!');
-});
+app.use('/api/v1/nantes', nantesRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Global error handler (should be after routes)
 app.use(errorHandler);
