@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "author": "Pierre-Alexandre Martin",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/pa-martin/pam-hapi/issues"
