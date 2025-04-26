@@ -1,0 +1,41 @@
+{
+  "name": "pam-hapi",
+  "version": "0.0.0",
+  "description": "Personal API for Home Assistant",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon --watch src -e js,ts,json --exec \"ts-node src/server.ts\"",
+    "build": "tsup src/server.ts --format cjs --clean",
+    "lint": "eslint .",
+    "start": "node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pa-martin/pam-hapi.git"
+  },
+  "keywords": [],
+  "author": "Pierre-Alexandre Martin",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pa-martin/pam-hapi/issues"
+  },
+  "homepage": "https://github.com/pa-martin/pam-hapi#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.2",
+    "@eslint/js": "^9.25.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.0"
+  }
+}
