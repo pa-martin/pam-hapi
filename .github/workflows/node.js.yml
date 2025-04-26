@@ -30,6 +30,4 @@ jobs:
     - run: npm run build --if-present
     - run: npm run lint --if-present
     - run: npm test --if-present
-    - run: npx ncu
-    - name: Update version in package.json
-      uses: maks-stupak/gh-action-bump-version@v7.1.5
+    - run: npx npm-check-updates
