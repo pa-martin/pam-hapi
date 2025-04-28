@@ -1,6 +1,6 @@
 {
   "name": "pam-hapi",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Personal API for Home Assistant",
   "main": "server.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "@eslint/js": "^9.25.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
-    "@types/node": "^22.15.2",
+    "@types/node": "^22.15.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "nodemon": "^3.1.10",
@@ -40,7 +40,7 @@
     "tsconfig-paths": "^4.2.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.0"
+    "typescript-eslint": "^8.31.1"
   },
   "overrides": {
     "glob": "^11.0.2",
