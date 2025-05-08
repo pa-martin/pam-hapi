@@ -1,0 +1,46 @@
+name: Build and Push Docker image
+
+on:
+  push:
+    branches: [ main, dev ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write  # Requis pour publier sur GHCR
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set image name and tag
+        id: vars
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/pam-hapi
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            TAG=latest
+          elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
+            TAG=next
+          else
+            echo "Unsupported branch"; exit 1
+          fi
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build -t $IMAGE_NAME:$TAG .
+
+      - name: Push Docker image
+        run: |
+          docker push $IMAGE_NAME:$TAG
