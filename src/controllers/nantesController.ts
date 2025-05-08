@@ -1,12 +1,12 @@
-import qs from 'qs';
+import {NantesService} from '@services/nantesService';
 import {NextFunction, Request, Response} from 'express';
-import {NantesService} from "@services/NantesService";
+import qs from 'qs';
 
 const service = new NantesService();
 
 export const getPools = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const queryParam = qs.parse(qs.stringify(req.query))
+        const queryParam = qs.parse(qs.stringify(req.query));
         res.json(await service.getPools(queryParam.city as string));
     } catch (error) {
         next(error);
@@ -15,7 +15,7 @@ export const getPools = async (req: Request, res: Response, next: NextFunction) 
 
 export const getSchedules = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const queryParam = qs.parse(qs.stringify(req.query))
+        const queryParam = qs.parse(qs.stringify(req.query));
         res.json(await service.getPoolsSchedules(
             queryParam.weekday as string,
             queryParam.city as string,
@@ -27,7 +27,7 @@ export const getSchedules = async (req: Request, res: Response, next: NextFuncti
 
 export const getEquipmentSchedules = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const queryParam = qs.parse(qs.stringify(req.query))
+        const queryParam = qs.parse(qs.stringify(req.query));
         res.json(await service.getEquipmentSchedules(
             queryParam.type as string,
             queryParam.weekday as string,

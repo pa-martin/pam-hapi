@@ -1,5 +1,5 @@
-import Match from "@models/pandaScore/Match";
-import Team from "@models/pandaScore/Team";
+import Match from '@models/pandaScore/Match';
+import Team from '@models/pandaScore/Team';
 
 /**
  * @openapi
@@ -28,6 +28,40 @@ import Team from "@models/pandaScore/Team";
  *           format: date-time
  *         match_name:
  *           type: string
+ *   examples:
+ *     NextMatch:
+ *       value:
+ *         league_name: LEC
+ *         video_game_name: LoL
+ *         team_name: Karmine Corp
+ *         team_slug: karmine-corp-academy
+ *         team_acronym: KC
+ *         opponent_name: Rogue
+ *         start: 2025-05-03T17:00:00.000Z
+ *         end: 2025-05-03T20:00:00.000Z
+ *         match_name: KC vs RGE
+ *     NextMatches:
+ *       value:
+ *         - league_name: LEC
+ *           video_game_name: LoL
+ *           team_name: Karmine Corp
+ *           team_slug: karmine-corp-academy
+ *           team_acronym: KC
+ *           opponent_name: Rogue
+ *           start: 2025-05-03T17:00:00.000Z
+ *           end: 2025-05-03T20:00:00.000Z
+ *           match_name: KC vs RGE
+ *     EmptyNextMatches:
+ *       value:
+ *         - league_name: ""
+ *           video_game_name: Valorant
+ *           team_name: Karmine Corp GC
+ *           team_slug: karmine-corp-female
+ *           team_acronym: KC
+ *           opponent_name: ""
+ *           start: null
+ *           end: null
+ *           match_name: No more matches
  */
 export default class NextMatch {
     league_name: string;

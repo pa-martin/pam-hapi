@@ -1,5 +1,5 @@
-import {Router} from 'express';
 import {getEquipmentSchedules, getPools, getSchedules} from '@controllers/nantesController';
+import {Router} from 'express';
 
 const router = Router();
 
@@ -15,6 +15,7 @@ const router = Router();
  *           name: city
  *           schema:
  *             type: string
+ *             enum: [Basse-Goulaine, Bouguenais, Carquefou, Couëron, Nantes, Orvault, Rezé, Saint-Herblain, Vertou]
  *           required: true
  *     responses:
  *       200:
@@ -25,6 +26,9 @@ const router = Router();
  *               type: array
  *               items:
  *                 $ref: "#/components/schemas/Pool"
+ *             examples:
+ *               Nantes:
+ *                 $ref: "#/components/examples/Pools"
  */
 router.get('/pools', getPools);
 
@@ -46,6 +50,7 @@ router.get('/pools', getPools);
  *           name: city
  *           schema:
  *             type: string
+ *             enum: [Basse-Goulaine, Bouguenais, Carquefou, Couëron, Nantes, Orvault, Rezé, Saint-Herblain, Vertou]
  *           required: true
  *     responses:
  *       200:
@@ -56,6 +61,9 @@ router.get('/pools', getPools);
  *               type: array
  *               items:
  *                  $ref: "#/components/schemas/Schedule"
+ *             examples:
+ *               lundi, Nantes:
+ *                 $ref: "#/components/examples/Schedules"
  */
 router.get('/pools/schedules', getSchedules);
 
@@ -71,6 +79,7 @@ router.get('/pools/schedules', getSchedules);
  *           name: type
  *           schema:
  *             type: string
+ *             enum: [Accueil insertion, Accueil personne agée, Autre, Bibliothèque, CCAS, CLIC, Centre Sociocuturel, Centre de loisirs, Centres Médico Sociaux, Château, Cimetière, Déchèterie, Ecopoint, Elévation, Enclos, Gymnase, Jardins familiaux, Libre, Locaux jeunes, Ludothèque, Mairie annexe, Mairie-Hôtel de Ville, Maison de Quartier, Marché, Mixte, Multi-accueil (crèche), Musée, Médiathèque, Parc, Parents-enfants, Piscine, Police municipale, Pôle de proximité, R.A.M, Restauration, Service municipal, Souterrain, Structure associée NM, Structure associée mairie]
  *           required: true
  *         - in: query
  *           name: weekday
@@ -90,6 +99,9 @@ router.get('/pools/schedules', getSchedules);
  *           application/json:
  *             schema:
  *               $ref: "#/components/schemas/Schedule"
+ *             examples:
+ *               Piscine, lundi, L. Lagrange:
+ *                 $ref: "#/components/examples/Schedule"
  */
 router.get('/schedule', getEquipmentSchedules);
 

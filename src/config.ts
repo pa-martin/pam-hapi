@@ -17,7 +17,7 @@ const swaggerConfig = {
         openapi: '3.0.0',
         info: {
             title: 'PAM\'HAPI',
-            version: '0.2.0',
+            version: '0.3.0',
         },
         servers: [
             {
@@ -26,12 +26,12 @@ const swaggerConfig = {
             },
             {
                 url: 'http://localhost:7001/api/v1',
-                description: 'Docker'
+                description: 'Docker',
             },
             {
                 url: 'http://192.168.51.51:7001/api/v1',
                 description: 'HA server',
-            }
+            },
         ],
     },
     apis: ['./src/routes/*.ts', './src/models/**/*.ts'],

@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
-import MatchEntity from "@entities/pandaScore/MatchEntity";
-import TeamEntity from "@entities/pandaScore/TeamEntity";
+import MatchEntity from '@entities/pandaScore/MatchEntity';
+import TeamEntity from '@entities/pandaScore/TeamEntity';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ const options = {
     headers: {
         accept: 'application/json',
         authorization: `Bearer ${TOKEN}`,
-    }
+    },
 };
 
 export class PandaScoreRepository {

@@ -1,4 +1,4 @@
-import VideoGameEntity from "@entities/pandaScore/VideoGameEntity";
+import VideoGameEntity from '@entities/pandaScore/VideoGameEntity';
 
 /**
  * @openapi

@@ -1,6 +1,6 @@
-import Pool from "@models/nantes/Pool";
-import Schedule, {OpenTime} from "@models/nantes/Schedule";
-import {NantesRepository} from "@repositories/nantesRepository";
+import Pool from '@models/nantes/Pool';
+import Schedule, {OpenTime} from '@models/nantes/Schedule';
+import {NantesRepository} from '@repositories/nantesRepository';
 
 export class NantesService {
     private readonly repository = new NantesRepository();
@@ -10,8 +10,8 @@ export class NantesService {
      * @param city - The city to fetch pools from
      */
     async getPools(city: string): Promise<Pool[]> {
-        const query = `where=commune="${city}"`
-        return (await this.repository.fetchPools(query)).map(pe => new Pool(pe))
+        const query = `where=commune="${city[0].toUpperCase() + city.substring(1).toLowerCase()}"`;
+        return (await this.repository.fetchPools(query)).map(pe => new Pool(pe));
     }
 
     /**
@@ -26,7 +26,7 @@ export class NantesService {
         for (const pool of pools) {
             const schedule = await this.getEquipmentSchedules('Piscine', weekday, pool.nom_usuel);
             if (!schedule) continue;
-            schedules.push(schedule)
+            schedules.push(schedule);
         }
 
         return schedules;
@@ -42,7 +42,7 @@ export class NantesService {
         const query = `where=type="${type}"\
         and datefin>date'${new Date().toISOString()}'\
         and jour="${weekday}"\
-        and nom="${equipmentName}"`
+        and nom="${equipmentName}"`;
 
         const schedules = await this.repository.fetchSchedules(query);
 
@@ -52,7 +52,7 @@ export class NantesService {
 
         const schedule = new Schedule(schedules[0]);
         schedule.schedules = schedules
-            .map((schedule): OpenTime => ({heure_debut: schedule.heuredebut, heure_fin: schedule.heurefin,}))
+            .map((schedule): OpenTime => ({heure_debut: schedule.heuredebut, heure_fin: schedule.heurefin}))
             .sort(OpenTime.compare);
         schedule.state = schedule.isOpen() ? 'open' : 'closed';
         schedule.schedule = schedule.schedules

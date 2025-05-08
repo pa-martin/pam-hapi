@@ -1,5 +1,5 @@
-import TeamEntity from "@entities/pandaScore/TeamEntity";
-import VideoGame from "@models/pandaScore/VideoGame";
+import TeamEntity from '@entities/pandaScore/TeamEntity';
+import VideoGame from '@models/pandaScore/VideoGame';
 
 /**
  * @openapi
@@ -19,6 +19,27 @@ import VideoGame from "@models/pandaScore/VideoGame";
  *         current_videogame:
  *           type: object
  *           $ref: '#/components/schemas/VideoGame'
+ *   examples:
+ *     Team:
+ *       value:
+ *         acronym: KC
+ *         id: 134078
+ *         name: Karmine Corp
+ *         slug: karmine-corp-academy
+ *         current_videogame:
+ *           id: 1
+ *           name: LoL
+ *           slug: league-of-legends
+ *     Teams:
+ *       value:
+ *         - acronym: KC
+ *           id: 134078
+ *           name: Karmine Corp
+ *           slug: karmine-corp-academy
+ *           current_videogame:
+ *             id: 1
+ *             name: LoL
+ *             slug: league-of-legends
  */
 export default class Team {
     acronym: string;

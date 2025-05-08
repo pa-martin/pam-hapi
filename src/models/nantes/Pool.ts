@@ -1,4 +1,4 @@
-import PoolEntity from "@entities/nantes/PoolEntity";
+import PoolEntity from '@entities/nantes/PoolEntity';
 
 /**
  * @openapi
@@ -24,6 +24,29 @@ import PoolEntity from "@entities/nantes/PoolEntity";
  *               type: number
  *             lat:
  *                type: number
+ *   examples:
+ *     Pool:
+ *       value:
+ *         idobj: 114
+ *         nom_usuel: L. Lagrange
+ *         nom_complet: Piscine Léo Lagrange Ile Gloriette - Nantes
+ *         adresse: Rue Deurbroucq
+ *         commune: Nantes
+ *         location: {
+ *           lon: -1.5600661319999745,
+ *           lat: 47.209857828
+ *         }
+ *     Pools:
+ *       value:
+ *         - idobj: 114
+ *           nom_usuel: L. Lagrange
+ *           nom_complet: Piscine Léo Lagrange Ile Gloriette - Nantes
+ *           adresse: Rue Deurbroucq
+ *           commune: Nantes
+ *           location: {
+ *             lon: -1.5600661319999745,
+ *             lat: 47.209857828
+ *           }
  */
 export default class Pool {
     idobj: number;
@@ -34,7 +57,7 @@ export default class Pool {
     location: {
         lon: number;
         lat: number;
-    }
+    };
 
     constructor(pool: PoolEntity) {
         this.idobj = pool.idobj;
@@ -44,7 +67,7 @@ export default class Pool {
         this.commune = pool.commune;
         this.location = {
             lon: pool.location.lon,
-            lat: pool.location.lat
+            lat: pool.location.lat,
         };
     }
 }

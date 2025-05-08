@@ -7,5 +7,5 @@ export default class PoolEntity {
     location: {
         lon: number;
         lat: number;
-    }
+    };
 }

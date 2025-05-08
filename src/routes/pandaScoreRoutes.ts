@@ -1,5 +1,5 @@
+import {getNextMatchesByTeamName, getTeamsByName} from '@controllers/pandaScoreController';
 import {Router} from 'express';
-import {getNextMatches, getTeamsByName} from '@controllers/pandaScoreController';
 
 const router = Router();
 
@@ -25,6 +25,9 @@ const router = Router();
  *               type: array
  *               items:
  *                 $ref: "#/components/schemas/Team"
+ *             examples:
+ *               karmine:
+ *                 $ref: "#/components/examples/Teams"
  */
 router.get('/teams', getTeamsByName);
 
@@ -50,7 +53,12 @@ router.get('/teams', getTeamsByName);
  *               type: array
  *               items:
  *                 $ref: "#/components/schemas/NextMatch"
+ *             examples:
+ *               karmine:
+ *                 $ref: "#/components/examples/NextMatches"
+ *               Empty:
+ *                 $ref: "#/components/examples/EmptyNextMatches"
  */
-router.get('/next-matches', getNextMatches);
+router.get('/next-matches', getNextMatchesByTeamName);
 
 export default router;

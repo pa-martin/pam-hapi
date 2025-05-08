@@ -8,7 +8,7 @@ export const errorHandler = (
     err: AppError,
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
 ) => {
     if (res.headersSent) {
         // Delegate to default error handler if headers are already sent

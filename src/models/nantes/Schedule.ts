@@ -1,4 +1,4 @@
-import ScheduleEntity from "@entities/nantes/ScheduleEntity";
+import ScheduleEntity from '@entities/nantes/ScheduleEntity';
 
 /**
  * @openapi
@@ -53,6 +53,37 @@ export class OpenTime {
  *           type: number
  *         long:
  *           type: number
+ *   examples:
+ *     Schedule:
+ *       value:
+ *         nom_complet: Piscine Léo Lagrange Ile Gloriette - Nantes
+ *         nom: L. Lagrange
+ *         jour: lundi
+ *         lat: 47.209857828
+ *         long: -1.5600661319999745
+ *         schedules: [
+ *           {
+ *             heure_debut: 12:00,
+ *             heure_fin: 20:00
+ *           }
+ *         ]
+ *         state: open
+ *         schedule: 12:00-20:00
+ *     Schedules:
+ *       value:
+ *         - nom_complet: Piscine Léo Lagrange Ile Gloriette - Nantes
+ *           nom: L. Lagrange
+ *           jour: lundi
+ *           lat: 47.209857828
+ *           long: -1.5600661319999745
+ *           schedules: [
+ *             {
+ *               heure_debut: 12:00,
+ *               heure_fin: 20:00
+ *             }
+ *           ]
+ *           state: open
+ *           schedule: 12:00-20:00
  */
 export default class Schedule {
     nom_complet: string;
@@ -80,6 +111,6 @@ export default class Schedule {
                 currentDate.getHours() < parseInt(schedule.heure_fin.split(':')[0]) ||
                 (currentDate.getHours() === parseInt(schedule.heure_fin.split(':')[0]) &&
                     currentDate.getMinutes() < parseInt(schedule.heure_fin.split(':')[1]));
-        })
+        });
     }
 }

@@ -1,15 +1,15 @@
-import ApiReturn from "@entities/nantes/ApiReturn";
-import PoolEntity from "@entities/nantes/PoolEntity";
-import ScheduleEntity from "@entities/nantes/ScheduleEntity";
+import ApiReturn from '@entities/nantes/ApiReturn';
+import PoolEntity from '@entities/nantes/PoolEntity';
+import ScheduleEntity from '@entities/nantes/ScheduleEntity';
 
 const BASE_URL = 'https://data.nantesmetropole.fr';
-const POOLS_URL = '/api/explore/v2.1/catalog/datasets/244400404_piscines-nantes-metropole/records'
-const SCHEDULE_URL = '/api/explore/v2.1/catalog/datasets/244400404_horaires-equipements-publics-nantes-metropole/records'
+const POOLS_URL = '/api/explore/v2.1/catalog/datasets/244400404_piscines-nantes-metropole/records';
+const SCHEDULE_URL = '/api/explore/v2.1/catalog/datasets/244400404_horaires-equipements-publics-nantes-metropole/records';
 const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-    }
+    },
 };
 
 export class NantesRepository {

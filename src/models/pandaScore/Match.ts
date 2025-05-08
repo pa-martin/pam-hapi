@@ -1,8 +1,8 @@
-import LeagueEntity from "@entities/pandaScore/LeagueEntity";
-import MatchEntity from "@entities/pandaScore/MatchEntity";
-import PlayerEntity from "@entities/pandaScore/PlayerEntity";
-import Team from "@models/pandaScore/Team";
-import VideoGameEntity from "@entities/pandaScore/VideoGameEntity";
+import LeagueEntity from '@entities/pandaScore/LeagueEntity';
+import MatchEntity from '@entities/pandaScore/MatchEntity';
+import PlayerEntity from '@entities/pandaScore/PlayerEntity';
+import VideoGameEntity from '@entities/pandaScore/VideoGameEntity';
+import Team from '@models/pandaScore/Team';
 
 export default class Match {
     league: LeagueEntity;
