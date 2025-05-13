@@ -17,7 +17,7 @@ const swaggerConfig = {
         openapi: '3.0.0',
         info: {
             title: 'PAM\'HAPI',
-            version: '0.3.0',
+            version: '0.3.1',
         },
         servers: [
             {

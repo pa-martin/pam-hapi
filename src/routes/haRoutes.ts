@@ -16,7 +16,7 @@ const router = Router();
  *           schema:
  *             type: string
  *             enum: [lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche]
- *           required: true
+ *           required: false
  *     responses:
  *       200:
  *         description: A record of NextMatch and Schedules.
@@ -43,6 +43,6 @@ const router = Router();
  *               example:
  *                 message: fetch failed
  */
-router.get('/conf', getHaConf);
+router.get('/config', getHaConf);
 
 export default router;
