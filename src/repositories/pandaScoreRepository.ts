@@ -23,6 +23,10 @@ export class PandaScoreRepository {
 
     async fetchMatches(query: string): Promise<MatchEntity[]> {
         const response = await fetch(`${BASE_URL}/matches?${query}`, options);
-        return (await response.json() as MatchEntity[]);
+        if (!response.ok) {
+            const body = await response.json() as { error: string, message: string };
+            throw new PandaScoreError(body.error, body.message);
+        }
+        return (await response.json() as MatchEntity[]) ?? [];
     }
 }
