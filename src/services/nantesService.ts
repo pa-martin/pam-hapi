@@ -40,6 +40,7 @@ export class NantesService {
      */
     async getEquipmentSchedules(type: string, weekday: string, equipmentName: string): Promise<Schedule | null> {
         const query = `where=type="${type}"\
+        and datedebut< date'${new Date().toISOString()}'\
         and datefin>date'${new Date().toISOString()}'\
         and jour="${weekday}"\
         and nom="${equipmentName}"`;

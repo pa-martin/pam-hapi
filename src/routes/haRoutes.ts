@@ -5,7 +5,7 @@ const router = Router();
 
 /**
  * @openapi
- * /ha/conf:
+ * /ha/config:
  *   get:
  *     description: Get all datas for the HA sensors.
  *     tags:

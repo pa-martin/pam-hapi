@@ -16,11 +16,6 @@ export class OpenTime {
     heure_debut: string; // HH:MM
     heure_fin: string;
 
-    constructor(heure_debut: string, heure_fin: string) {
-        this.heure_debut = heure_debut;
-        this.heure_fin = heure_fin;
-    }
-
     static compare(a: OpenTime, b: OpenTime): number {
         const startA = new Date(`1970-01-01T${a.heure_debut}:00`);
         const startB = new Date(`1970-01-01T${b.heure_debut}:00`);
