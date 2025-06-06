@@ -8,7 +8,8 @@ export class SncfService {
      * Fetches the next train arrivals to and from Nantes.
      */
     async getArrivals(): Promise<{ fromNantes: Arrival[], toNantes: Arrival[] }> {
-        const query = `duration=${3600 * (48 - new Date().getHours()) + 60 * (60 - new Date().getMinutes())}`;
+        const now = new Date();
+        const query = `duration=${3600 * (48 - now.getHours()) + 60 * (60 - now.getMinutes())}`;
         const res = (await this.repository.getArrivals(query));
 
         const fromNantes: Arrival[] = [];

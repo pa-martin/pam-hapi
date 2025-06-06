@@ -61,8 +61,8 @@ export default class Arrival {
     constructor(stop: DepartureEntity, isTGV: boolean) {
         this.arrival = Arrival.mapDate(stop.stop_date_time.arrival_date_time);
         this.base_arrival = Arrival.mapDate(stop.stop_date_time.base_arrival_date_time);
-        this.delay = parseInt(stop.stop_date_time.arrival_date_time.replace('T', '')) -
-            parseInt(stop.stop_date_time.base_arrival_date_time.replace('T', ''));
+        this.delay = (Arrival.mapDate(stop.stop_date_time.arrival_date_time).getTime() -
+            Arrival.mapDate(stop.stop_date_time.base_arrival_date_time).getTime()) / 1000;
         this.direction = Arrival.re.exec(stop.display_informations.direction)?.[0].replace(/[()]/g, '') ?? '';
         this.route_direction = Arrival.re.exec(stop.route.direction.name)?.[0].replace(/[()]/g, '') ?? '';
         this.type = isTGV ? 'TGV' : 'TER';

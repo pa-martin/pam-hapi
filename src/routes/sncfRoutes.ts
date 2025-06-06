@@ -1,4 +1,4 @@
-import {getTeamsByName} from '@controllers/sncfController';
+import {getArrivals} from '@controllers/sncfController';
 import {Router} from 'express';
 
 const router = Router();
@@ -30,6 +30,6 @@ const router = Router();
  *               Arrival:
  *                 $ref: "#/components/examples/Arrivals"
  */
-router.get('/trains', getTeamsByName);
+router.get('/trains', getArrivals);
 
 export default router;

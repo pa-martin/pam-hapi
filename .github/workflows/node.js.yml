@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x, 23.x]
+        node-version: [20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -30,5 +30,14 @@ jobs:
     - run: npm run build --if-present
     - run: npm run lint --if-present
     - run: npm test --if-present
-    - run: npx npm-check-updates --errorLevel 2
+
+    # 1. On exécute npm-check-updates et on force la suite même en cas d'erreur
+    - name: Vérifier les mises à jour de dépendances
+      id: check-updates
+      run: npx npm-check-updates --errorLevel 2
       continue-on-error: true
+    # 2. Si l’étape précédente a échoué (code 2 = paquets obsolètes), on lève un warning
+    - name: Alerter si des dépendances sont obsolètes
+      if: steps.check-updates.outcome == 'failure'
+      run: |
+        echo "::warning::Certaines dépendances ne sont pas à jour. Exécutez `npx npm-check-updates -u` puis `npm install` pour les mettre à jour."
