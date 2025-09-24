@@ -17,7 +17,7 @@ const swaggerConfig = {
         openapi: '3.0.0',
         info: {
             title: 'PAM\'HAPI',
-            version: '0.3.1',
+            version: '0.4.0',
         },
         servers: [
             {
@@ -29,8 +29,12 @@ const swaggerConfig = {
                 description: 'Docker',
             },
             {
-                url: 'http://192.168.51.51:7001/api/v1',
-                description: 'HA server',
+                url: 'http://pami-serv:7000/api/v1',
+                description: 'HA server (prod)',
+            },
+            {
+                url: 'http://pami-serv:7001/api/v1',
+                description: 'HA server (dev)',
             },
         ],
     },

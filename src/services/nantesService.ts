@@ -39,10 +39,13 @@ export class NantesService {
      * @param equipmentName - The name of the equipment
      */
     async getEquipmentSchedules(type: string, weekday: string, equipmentName: string): Promise<Schedule | null> {
-        const query = `where=type="${type}"\
-        and datefin>date'${new Date().toISOString()}'\
-        and jour="${weekday}"\
-        and nom="${equipmentName}"`;
+        const query = `
+            where=type="${type}"
+            and datedebut<date'${new Date().toISOString()}'
+            and datefin>date'${new Date().toISOString()}'
+            and jour="${weekday}"
+            and nom="${equipmentName}"
+        `.trim();
 
         const schedules = await this.repository.fetchSchedules(query);
 

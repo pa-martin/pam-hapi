@@ -80,11 +80,12 @@ export default class NextMatch {
         this.team_name = team.name;
         this.team_slug = team.slug;
         this.team_acronym = team.acronym;
-        this.opponent_name = match?.opponents
-                .find(opponent => opponent.opponent.id !== team.id)?.opponent.name
-            ?? '';
-        this.start = new Date(match?.scheduled_at ?? match?.begin_at ?? '');
-        this.end = new Date(Date.parse(match?.scheduled_at ?? '') + 3600000 * (match?.number_of_games ?? 1));
+        if (match) {
+            this.opponent_name = match.opponents
+                .find(opponent => opponent.opponent.id !== team.id)?.opponent.name ?? '';
+            this.start = new Date(match.scheduled_at ?? match.begin_at);
+            this.end = new Date(Date.parse(this.start.toISOString()) + 3600000 * (match.number_of_games ?? 1));
+        }
         this.match_name = match?.name ?? 'No more matches';
     }
 }
