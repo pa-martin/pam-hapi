@@ -2,7 +2,7 @@ name: Build and Push Docker image
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main, dev, beta ]
 
 jobs:
   build-and-push:
@@ -24,6 +24,8 @@ jobs:
             TAG=latest
           elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
             TAG=next
+          elif [[ "${{ github.ref }}" == "refs/heads/beta" ]]; then
+            TAG=beta
           else
             echo "Unsupported branch"; exit 1
           fi
