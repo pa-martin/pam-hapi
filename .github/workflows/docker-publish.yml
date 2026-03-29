@@ -22,11 +22,11 @@ jobs:
         id: vars
         run: |
           IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/pam-hapi
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
             TAG=latest
-          elif [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
+          elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.base_ref }}" == "dev" ]]; then
             TAG=next
-          elif [[ "${{ github.ref }}" == "refs/heads/beta" ]]; then
+          elif [[ "${{ github.event_name }}" == "pull_request" && "${{ github.base_ref }}" == "beta" ]]; then
             TAG=beta
           else
             echo "Unsupported branch"; exit 1
