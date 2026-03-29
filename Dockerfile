@@ -7,7 +7,6 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-ENV tokens.pandascore
 ENV application.port=7000
 ENV application.env=production
 ENV elasticsearch.index.base=metrics-pamihapi.
