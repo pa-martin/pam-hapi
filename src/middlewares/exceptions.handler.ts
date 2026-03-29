@@ -1,4 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
+import {Logger} from "@modules/logger";
 
 export interface AppError extends Error {
     status?: number;
@@ -15,7 +16,15 @@ export const errorHandler = (
         return next(err);
     }
 
-    console.error(err);
+    const log = Logger.instance.getLogger('ErrorHandler');
+    const from = err.stack
+            ?.split('\n')[1]
+            .split('/')
+            .find(v => new RegExp(/[A-z]*\.ts/).exec(v))
+        ?? 'unknown source';
+
+    log.error(`Error from ${from} : ${err.message}`);
+    log.trace(err.stack);
     res.status(err.status ?? 500).json({
         message: err.message || 'Internal Server Error',
     });

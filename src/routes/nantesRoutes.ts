@@ -1,4 +1,4 @@
-import {getEquipmentSchedules, getPools, getSchedules} from '@controllers/nantesController';
+import {getEquipmentsByType, getEquipmentSchedules, getPools, getSchedules} from '@controllers/nantesController';
 import {Router} from 'express';
 
 const router = Router();
@@ -104,5 +104,32 @@ router.get('/pools/schedules', getSchedules);
  *                 $ref: "#/components/examples/Schedule"
  */
 router.get('/schedule', getEquipmentSchedules);
+
+/**
+ * @openapi
+ * /nantes/scheduletype:
+ *   get:
+ *     description: Fetch the schedule of specific equipment in a specific day thanks to its name.
+ *     tags:
+ *       - Nantes Métropole
+ *     parameters:
+ *         - in: query
+ *           name: type
+ *           schema:
+ *             type: string
+ *             enum: [Accueil insertion, Accueil personne agée, Autre, Bibliothèque, CCAS, CLIC, Centre Sociocuturel, Centre de loisirs, Centres Médico Sociaux, Château, Cimetière, Déchèterie, Ecopoint, Elévation, Enclos, Gymnase, Jardins familiaux, Libre, Locaux jeunes, Ludothèque, Mairie annexe, Mairie-Hôtel de Ville, Maison de Quartier, Marché, Mixte, Multi-accueil (crèche), Musée, Médiathèque, Parc, Parents-enfants, Piscine, Police municipale, Pôle de proximité, R.A.M, Restauration, Service municipal, Souterrain, Structure associée NM, Structure associée mairie]
+ *           required: true
+ *     responses:
+ *       200:
+ *         description: Returns a mysterious string.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/Schedule"
+ *             examples:
+ *               Piscine, lundi, L. Lagrange:
+ *                 $ref: "#/components/examples/Schedule"
+ */
+router.get('/scheduletype', getEquipmentsByType);
 
 export default router;

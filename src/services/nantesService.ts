@@ -1,9 +1,12 @@
 import Pool from '@models/nantes/Pool';
 import Schedule, {OpenTime} from '@models/nantes/Schedule';
 import {NantesRepository} from '@repositories/nantesRepository';
+import ScheduleEntity from '@entities/nantes/ScheduleEntity';
+import {Logger} from "@modules/logger";
 
 export class NantesService {
     private readonly repository = new NantesRepository();
+    private readonly log = Logger.instance.getLogger('NantesService');
 
     /**
      * Fetches the pools in a given city
@@ -11,6 +14,7 @@ export class NantesService {
      */
     async getPools(city: string): Promise<Pool[]> {
         const query = `where=commune="${city[0].toUpperCase() + city.substring(1).toLowerCase()}"`;
+        this.log.debug(`Fetching pools for city '${city}' with query '${query}'`);
         return (await this.repository.fetchPools(query)).map(pe => new Pool(pe));
     }
 
@@ -29,7 +33,30 @@ export class NantesService {
             schedules.push(schedule);
         }
 
+        this.log.debug(`Fetched schedules for ${schedules.length} pools in city '${city}' for weekday '${weekday}'`);
         return schedules;
+    }
+
+    /**
+     * Fetches the schedules of a specific equipment
+     * @param type - The type of equipment (e.g. "Piscine", "Déchèterie", etc.)
+     */
+    async getEquipmentsByType(type: string): Promise<ScheduleEntity[]> {
+        const query = `
+            where=type="${type}"
+            and datedebut<date'${new Date().toISOString()}'
+            and datefin>date'${new Date().toISOString()}'
+        `.trim();
+
+        const schedules = await this.repository.fetchSchedules(query);
+        const equipments: ScheduleEntity[] = [];
+        schedules.forEach(schedule => {
+            if (!equipments.some(equipment => equipment.nom_complet === schedule.nom_complet))
+                equipments.push(schedule);
+        });
+
+        this.log.debug(`Fetched ${equipments.length} equipments of type '${type}' with query '${query}'`);
+        return equipments;
     }
 
     /**
@@ -62,6 +89,7 @@ export class NantesService {
             .map(openTime => openTime.heure_debut + '-' + openTime.heure_fin)
             .join(' | ');
 
+        this.log.debug(`Fetched schedule for equipment '${equipmentName}' of type '${type}' on weekday '${weekday}' with query '${query}'`);
         return schedule;
     }
 }

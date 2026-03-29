@@ -5,9 +5,15 @@
 Create a `.env` file with the following content and fill in the values.
 
 ```dotenv
-PORT=7000
+application.port=3000
+application.env=development
 
-PANDASCORE_TOKEN=<token>
+elasticsearch.index.base=metrics-pamhapi.
+
+log.level=trace
+
+tokens.pandascore=
+tokens.sncf=
 ```
 
 ## Manually

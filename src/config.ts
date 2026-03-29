@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import {EnvService} from '@services/envService';
 
-dotenv.config();
+const env = EnvService.instance;
 
 interface Config {
     port: number;
@@ -8,8 +8,8 @@ interface Config {
 }
 
 const config: Config = {
-    port: Number(process.env.PORT) || 3000,
-    nodeEnv: process.env.NODE_ENV ?? 'development',
+    port: Number(env.get('application.port')) || 3000,
+    nodeEnv: env.get('application.env') ?? 'development',
 };
 
 const swaggerConfig = {
