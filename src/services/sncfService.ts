@@ -1,6 +1,6 @@
 import Arrival from '@models/sncf/Arrival';
 import {SncfRepository} from '@repositories/sncfRepository';
-import {Logger} from "@modules/logger";
+import {Logger} from '@modules/logger';
 
 export class SncfService {
     private readonly repository = new SncfRepository();

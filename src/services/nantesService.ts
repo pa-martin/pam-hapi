@@ -50,9 +50,12 @@ export class NantesService {
 
         const schedules = await this.repository.fetchSchedules(query);
         const equipments: ScheduleEntity[] = [];
+        const seenNomComplet = new Set<string>();
         schedules.forEach(schedule => {
-            if (!equipments.some(equipment => equipment.nom_complet === schedule.nom_complet))
+            if (!seenNomComplet.has(schedule.nom_complet)) {
+                seenNomComplet.add(schedule.nom_complet);
                 equipments.push(schedule);
+            }
         });
 
         this.log.debug(`Fetched ${equipments.length} equipments of type '${type}' with query '${query}'`);

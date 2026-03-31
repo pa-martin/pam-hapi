@@ -10,7 +10,7 @@ COPY . .
 ENV application.port=7000
 ENV application.env=production
 ENV elasticsearch.service.tag=docker
-ENV log.level=trace
+ENV log.level=info
 
 # Compile les fichiers TypeScript
 RUN npm run build
