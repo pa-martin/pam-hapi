@@ -9,7 +9,7 @@ COPY . .
 
 ENV application.port=7000
 ENV application.env=production
-ENV elasticsearch.index.base=metrics-pamihapi.
+ENV elasticsearch.service.tag=docker
 ENV log.level=trace
 
 # Compile les fichiers TypeScript
