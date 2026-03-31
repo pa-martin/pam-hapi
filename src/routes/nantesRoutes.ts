@@ -1,4 +1,4 @@
-import {getEquipmentSchedules, getPools, getSchedules} from '@controllers/nantesController';
+import {getEquipmentsByType, getEquipmentSchedules, getPools, getSchedules} from '@controllers/nantesController';
 import {Router} from 'express';
 
 const router = Router();
@@ -54,7 +54,7 @@ router.get('/pools', getPools);
  *           required: true
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: An array of pools schedules.
  *         content:
  *           application/json:
  *             schema:
@@ -94,7 +94,7 @@ router.get('/pools/schedules', getSchedules);
  *           required: true
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: The schedule of the equipment corresponding to the given name, type and weekday.
  *         content:
  *           application/json:
  *             schema:
@@ -104,5 +104,34 @@ router.get('/pools/schedules', getSchedules);
  *                 $ref: "#/components/examples/Schedule"
  */
 router.get('/schedule', getEquipmentSchedules);
+
+/**
+ * @openapi
+ * /nantes/scheduletype:
+ *   get:
+ *     description: Fetch the schedule of all equipments with a specific type.
+ *     tags:
+ *       - Nantes Métropole
+ *     parameters:
+ *         - in: query
+ *           name: type
+ *           schema:
+ *             type: string
+ *             enum: [Accueil insertion, Accueil personne agée, Autre, Bibliothèque, CCAS, CLIC, Centre Sociocuturel, Centre de loisirs, Centres Médico Sociaux, Château, Cimetière, Déchèterie, Ecopoint, Elévation, Enclos, Gymnase, Jardins familiaux, Libre, Locaux jeunes, Ludothèque, Mairie annexe, Mairie-Hôtel de Ville, Maison de Quartier, Marché, Mixte, Multi-accueil (crèche), Musée, Médiathèque, Parc, Parents-enfants, Piscine, Police municipale, Pôle de proximité, R.A.M, Restauration, Service municipal, Souterrain, Structure associée NM, Structure associée mairie]
+ *           required: true
+ *     responses:
+ *       200:
+ *         description: An array of equipments with the same type
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/ScheduleEntity"
+ *             examples:
+ *               Piscine:
+ *                 $ref: "#/components/examples/ScheduleEntity"
+ */
+router.get('/scheduletype', getEquipmentsByType);
 
 export default router;

@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:24-alpine
 WORKDIR /app
 
 RUN npm install -g typescript
@@ -7,9 +7,10 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-ARG PANDASCORE_TOKEN
-ENV PORT=7000
-ENV NODE_ENV=production
+ENV application.port=7000
+ENV application.env=production
+ENV elasticsearch.service.tag=docker
+ENV log.level=info
 
 # Compile les fichiers TypeScript
 RUN npm run build

@@ -1,8 +1,10 @@
 import Arrival from '@models/sncf/Arrival';
 import {SncfRepository} from '@repositories/sncfRepository';
+import {Logger} from '@modules/logger';
 
 export class SncfService {
     private readonly repository = new SncfRepository();
+    private readonly log = Logger.instance.getLogger('SncfService');
 
     /**
      * Fetches the next train arrivals to and from Nantes.
@@ -25,6 +27,7 @@ export class SncfService {
             }
         });
 
+        this.log.debug(`Fetched ${fromNantes.length} arrivals from Nantes and ${toNantes.length} arrivals to Nantes with query '${query}'`);
         return {fromNantes: fromNantes, toNantes: toNantes};
     }
 }

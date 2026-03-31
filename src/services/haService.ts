@@ -2,10 +2,12 @@ import Schedule from '@models/nantes/Schedule';
 import NextMatch from '@models/pandaScore/NextMatch';
 import {NantesService} from '@services/nantesService';
 import {PandaScoreService} from '@services/pandaScoreService';
+import {Logger} from "@modules/logger";
 
 export class HaService {
     private readonly nantesService = new NantesService();
     private readonly pandaScoreService = new PandaScoreService();
+    private readonly log = Logger.instance.getLogger('HaService');
 
     /**
      * Get the HA configuration for a given weekday or the current weekday if none is provided and the time is before 22:00. Else, it will fetch the next weekday.
@@ -28,6 +30,7 @@ export class HaService {
         (await this.pandaScoreService.getNextMatchesByTeamName('karmine'))
             .forEach(nm => record[nm.team_slug] = nm);
 
+        this.log.info(`Fetched HA configuration for weekday '${weekday}' with ${Object.keys(record).length} entries`);
         return record;
     }
 }

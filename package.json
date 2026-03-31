@@ -1,6 +1,6 @@
 {
   "name": "pam-hapi",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Personal API for Home Assistant",
   "main": "server.js",
   "scripts": {
@@ -22,28 +22,30 @@
   },
   "homepage": "https://github.com/pa-martin/pam-hapi#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
+    "@elastic/ecs-pino-format": "^1.5.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "pino": "^10.3.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.26.0",
-    "@types/cors": "^2.8.18",
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.15.17",
+    "@eslint/js": "^10.0.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
-    "nodemon": "^3.1.10",
+    "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "tsup": "^8.4.0",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.32.1"
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.0"
   },
   "overrides": {
-    "glob": "^11.0.2",
-    "@apidevtools/swagger-parser": "^10.1.1"
+    "glob": "^13.0.6",
+    "@apidevtools/swagger-parser": "^12.1.0"
   }
 }
