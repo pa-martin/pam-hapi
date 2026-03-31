@@ -38,7 +38,8 @@ export class EnvService {
         if (!value) {
             throw new Error(`Environment variable ${key} is not set`);
         } else if (key.includes('key') || key.includes('secret') || key.includes('token')) {
-            printableValue = `${value.substring(0, 4)}...${value.substring(value.length - 4)}"`;
+            const charToKeep = Math.min(value.length / 3, 4);
+            printableValue = `${value.substring(0, charToKeep)}...${value.substring(value.length - charToKeep)}"`;
         }
 
         EnvService.log.debug(`Environment variable '${key}' is defined with value '${printableValue ?? value}'`);

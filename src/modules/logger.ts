@@ -7,7 +7,7 @@ export class Logger {
     private readonly logger = pino({
         ...ecsFormat(),
         name: 'pino@^10.3.1',
-        level: EnvService.instance.get('log.level') ?? 'info',
+        level: EnvService.instance.get('log.level'),
         base: {
             'service.tag': EnvService.instance.get('elasticsearch.service.tag')
         }
@@ -21,10 +21,9 @@ export class Logger {
         return Logger._;
     }
 
-    getLogger(serviceName: string, level?: string) {
+    getLogger(serviceName: string) {
         return this.logger.child({
-            'service.name': serviceName,
-            level: level
+            'service.name': serviceName
         });
     }
 

@@ -15,9 +15,9 @@ export class SncfRepository {
     private readonly log = Logger.instance.getLogger('SncfRepository');
 
     /**
-     * Fetch teams from PandaScore API
-     * @param query - The query string to filter teams following this format:
-     * `search[name]=<team_name>`
+     * Fetches the arrivals for the stop area with id 'stop_area:SNCF:87481762' (which corresponds to Le Pouliguen station) with a given query string.
+     * @param query - The query string to append to the URL (e.g. "datetime=20240101T120000")
+     * @returns A promise that resolves to a ResponseEntity containing the arrivals data
      */
     async getArrivals(query: string): Promise<ResponseEntity> {
         const url = `${BASE_URL}/stop_areas/stop_area%3ASNCF%3A87481762/arrivals?count=100&${query}`;
@@ -32,7 +32,7 @@ export class SncfRepository {
                     return data;
                 }
                 if (JSON.stringify(data).includes('Token absent')) {
-                    console.log(`Received response from SNCF API: ${JSON.stringify(data)}`);
+                    this.log.error(`Received response from SNCF API: ${JSON.stringify(data)}`);
                     throw new Error('Invalid SNCF API token. Please check your environment variables.');
                 }
                 throw new TypeError(`Response data is not an instance of ResponseEntity: ${JSON.stringify(data)}`);

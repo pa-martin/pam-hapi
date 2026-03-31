@@ -54,7 +54,7 @@ router.get('/pools', getPools);
  *           required: true
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: An array of pools schedules.
  *         content:
  *           application/json:
  *             schema:
@@ -94,7 +94,7 @@ router.get('/pools/schedules', getSchedules);
  *           required: true
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: The schedule of the equipment corresponding to the given name, type and weekday.
  *         content:
  *           application/json:
  *             schema:
@@ -109,7 +109,7 @@ router.get('/schedule', getEquipmentSchedules);
  * @openapi
  * /nantes/scheduletype:
  *   get:
- *     description: Fetch the schedule of specific equipment in a specific day thanks to its name.
+ *     description: Fetch the schedule of all equipments with a specific type.
  *     tags:
  *       - Nantes Métropole
  *     parameters:
@@ -121,14 +121,16 @@ router.get('/schedule', getEquipmentSchedules);
  *           required: true
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: An array of equipments with the same type
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/Schedule"
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/ScheduleEntity"
  *             examples:
- *               Piscine, lundi, L. Lagrange:
- *                 $ref: "#/components/examples/Schedule"
+ *               Piscine:
+ *                 $ref: "#/components/examples/ScheduleEntity"
  */
 router.get('/scheduletype', getEquipmentsByType);
 

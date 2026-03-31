@@ -20,7 +20,7 @@ export const errorHandler = (
     const from = err.stack
             ?.split('\n')[1]
             .split('/')
-            .find(v => new RegExp(/[A-z]*\.ts/).exec(v))
+            .find(v => /\d*\.ts/.test(v))
         ?? 'unknown source';
 
     log.error(`Error from ${from} : ${err.message}`);
