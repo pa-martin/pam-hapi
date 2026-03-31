@@ -23,7 +23,7 @@ export class SncfRepository {
         const url = `${BASE_URL}/stop_areas/stop_area%3ASNCF%3A87481762/arrivals?count=100&${query}`;
         return fetch(url, options)
             .catch((error: Error) => {
-                throw new Error(`Failed to fetch arrivals with url '${url}': ${error.message}`, error);
+                throw new Error(`Failed to fetch arrivals with url '${url}': ${error.message}`, {cause: error});
             })
             .then(response => response.json())
             .then(data => {
