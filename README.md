@@ -1,5 +1,9 @@
 # Build and run
 
+## Setup elasticsearch
+
+Follow this guide : https://www.elastic.co/docs/reference/beats/filebeat/running-on-docker
+
 ## Environment
 
 Create a `.env` file with the following content and fill in the values.
@@ -8,7 +12,7 @@ Create a `.env` file with the following content and fill in the values.
 application.port=3000
 application.env=development
 
-elasticsearch.index.base=metrics-pamhapi.
+elasticsearch.service.tag=prod
 
 log.level=trace
 

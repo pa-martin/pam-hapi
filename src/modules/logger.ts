@@ -8,6 +8,9 @@ export class Logger {
         ...ecsFormat(),
         name: 'pino@^10.3.1',
         level: EnvService.instance.get('log.level') ?? 'info',
+        base: {
+            'service.tag': EnvService.instance.get('elasticsearch.service.tag')
+        }
     });
 
     public static get instance(): Logger {
@@ -20,7 +23,7 @@ export class Logger {
 
     getLogger(serviceName: string, level?: string) {
         return this.logger.child({
-            serviceName: EnvService.instance.get('elasticsearch.index.base') + serviceName,
+            'service.name': serviceName,
             level: level
         });
     }

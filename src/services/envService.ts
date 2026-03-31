@@ -11,7 +11,11 @@ export class EnvService {
         ...ecsFormat(),
         name: 'pino@^10.3.1',
         level: process.env['log.level'] ?? 'info',
-    }).child({serviceName: process.env['elasticsearch.index.base'] + 'EnvService'});
+        base: {
+            'service.name': 'EnvService',
+            'service.tag': process.env['elasticsearch.service.tag']
+        }
+    });
 
     private constructor() {
         this.env = process.env;
