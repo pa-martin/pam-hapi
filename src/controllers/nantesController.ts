@@ -25,6 +25,17 @@ export const getSchedules = async (req: Request, res: Response, next: NextFuncti
     }
 };
 
+export const getEquipmentsByType = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const queryParam = qs.parse(qs.stringify(req.query));
+        res.json(await service.getEquipmentsByType(
+            queryParam.type as string,
+        ));
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getEquipmentSchedules = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const queryParam = qs.parse(qs.stringify(req.query));

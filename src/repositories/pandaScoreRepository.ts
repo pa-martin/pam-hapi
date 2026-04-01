@@ -1,16 +1,14 @@
 import MatchEntity from '@entities/pandaScore/MatchEntity';
 import TeamEntity from '@entities/pandaScore/TeamEntity';
 import {PandaScoreError} from '@errors/PandaScoreError';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import {EnvService} from '@services/envService';
 
 const BASE_URL = 'https://api.pandascore.co';
 const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-        authorization: `Bearer ${process.env.PANDASCORE_TOKEN}`,
+        authorization: `Bearer ${EnvService.instance.get('tokens.pandaScore')}`,
     },
 };
 

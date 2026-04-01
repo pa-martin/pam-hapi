@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import {EnvService} from '@services/envService';
 
-dotenv.config();
+const env = EnvService.instance;
 
 interface Config {
     port: number;
@@ -8,8 +8,8 @@ interface Config {
 }
 
 const config: Config = {
-    port: Number(process.env.PORT) || 3000,
-    nodeEnv: process.env.NODE_ENV ?? 'development',
+    port: Number(env.get('application.port')),
+    nodeEnv: env.get('application.env'),
 };
 
 const swaggerConfig = {
@@ -17,7 +17,7 @@ const swaggerConfig = {
         openapi: '3.0.0',
         info: {
             title: 'PAM\'HAPI',
-            version: '0.4.0',
+            version: '0.5.0',
         },
         servers: [
             {
@@ -38,7 +38,7 @@ const swaggerConfig = {
             },
         ],
     },
-    apis: ['./src/routes/*.ts', './src/models/**/*.ts'],
+    apis: ['./src/routes/*.ts', './src/models/**/*.ts', './src/entities/**/*.ts'],
 };
 
 export {config, swaggerConfig};
