@@ -34,12 +34,14 @@ export class PandaScoreRepository {
                 }
                 if (JSON.stringify(data).includes('Invalid credentials')) {
                     const err = new PandaScoreError('InvalidToken', `fetchTeams(${query})`);
-                    err.message = `Received response from PandaScore API: ${JSON.stringify(data)}. Please check your environment variables.`;
+                    err.message = `Received response from PandaScore API. Please check your environment variables.`;
+                    err.stack = JSON.stringify(data);
                     err.status = 503;
                     throw err;
                 }
                 const err = new PandaScoreError('UnexpectedResponse', `fetchTeams(${query})`);
-                err.message = `Response data is not an array of TeamEntity: ${JSON.stringify(data)}`;
+                err.message = `Response data is not an array of TeamEntity`;
+                err.stack = JSON.stringify(data);
                 throw err;
             });
     }
@@ -65,12 +67,14 @@ export class PandaScoreRepository {
                 }
                 if (JSON.stringify(data).includes('Invalid credentials')) {
                     const err = new PandaScoreError('InvalidToken', `fetchMatches(${query})`);
-                    err.message = `Received response from PandaScore API: ${JSON.stringify(data)}. Please check your environment variables.`;
+                    err.message = `Received response from PandaScore API. Please check your environment variables.`;
+                    err.stack = JSON.stringify(data);
                     err.status = 503;
                     throw err;
                 }
                 const err = new PandaScoreError('UnexpectedResponse', `fetchMatches(${query})`);
-                err.message = `Response data is not an array of TeamEntity: ${JSON.stringify(data)}`;
+                err.message = `Response data is not an array of TeamEntity`;
+                err.stack = JSON.stringify(data);
                 throw err;
             });
     }
