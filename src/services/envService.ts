@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import pino from "pino";
 import ecsFormat from "@elastic/ecs-pino-format";
+import packageJson from "~~/package.json";
 
 dotenv.config();
 
@@ -9,11 +10,12 @@ export class EnvService {
     private readonly env: NodeJS.ProcessEnv;
     private static readonly log = pino({
         ...ecsFormat(),
-        name: 'pino@^10.3.1',
+        name: `pino@${packageJson.dependencies.pino}`,
         level: process.env['log.level'] ?? 'info',
         base: {
-            'service.name': 'EnvService',
-            'service.tag': process.env['elasticsearch.service.tag']
+            'app.service.name': 'EnvService',
+            'app.service.tag': process.env['elasticsearch.service.tag'],
+            'app.version': packageJson.version,
         }
     });
 

@@ -1,4 +1,5 @@
 import {EnvService} from '@services/envService';
+import packageJson from "~~/package.json";
 
 const env = EnvService.instance;
 
@@ -27,7 +28,7 @@ const swaggerConfig = {
         openapi: '3.0.0',
         info: {
             title: 'PAM\'HAPI',
-            version: '0.5.1',
+            version: packageJson.version,
         },
         servers: [
             {
