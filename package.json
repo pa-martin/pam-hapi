@@ -1,6 +1,6 @@
 {
   "name": "pam-hapi",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Personal API for Home Assistant",
   "main": "server.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "dependencies": {
     "@elastic/ecs-pino-format": "^1.5.0",
     "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.0",
     "express": "^5.2.1",
     "pino": "^10.3.1",
     "swagger-jsdoc": "^6.2.8",

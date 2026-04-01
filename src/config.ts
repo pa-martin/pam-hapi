@@ -11,31 +11,29 @@ const config: Config = {
     port: Number(env.get('application.port')),
     nodeEnv: env.get('application.env'),
 };
+const url = () => {
+    switch (config.nodeEnv) {
+        case 'production':
+            return `http://pami-serv:${config.port}/api/v1`;
+        case 'development':
+        case 'docker':
+        default:
+            return `http://localhost:${config.port}/api/v1`;
+    }
+}
 
 const swaggerConfig = {
     definition: {
         openapi: '3.0.0',
         info: {
             title: 'PAM\'HAPI',
-            version: '0.5.0',
+            version: '0.5.1',
         },
         servers: [
             {
-                url: 'http://localhost:3000/api/v1',
-                description: 'Development server',
-            },
-            {
-                url: 'http://localhost:7001/api/v1',
-                description: 'Docker',
-            },
-            {
-                url: 'http://pami-serv:7000/api/v1',
-                description: 'HA server (prod)',
-            },
-            {
-                url: 'http://pami-serv:7001/api/v1',
-                description: 'HA server (dev)',
-            },
+                url: url(),
+                description: 'Url d\'accès',
+            }
         ],
     },
     apis: ['./src/routes/*.ts', './src/models/**/*.ts', './src/entities/**/*.ts'],
