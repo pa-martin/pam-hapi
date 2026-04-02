@@ -27,7 +27,12 @@ export class PandaScoreRepository {
                 err.reason = 'fetch failed'
                 throw err;
             })
-            .then(response => response.json())
+            .then(response => response.json().catch(error => {
+                const err = error as PandaScoreError;
+                err.thrownBy = `fetchTeams(${query})`;
+                err.reason = 'invalid JSON response';
+                throw err;
+            }))
             .then(data => {
                 if (Array.isArray(data)) {
                     return data as TeamEntity[];
@@ -37,6 +42,13 @@ export class PandaScoreRepository {
                     err.message = `Received response from PandaScore API. Please check your environment variables.`;
                     err.stack = JSON.stringify(data);
                     err.status = 503;
+                    throw err;
+                }
+                if (data as { error: string, status: number }) {
+                    const err = new PandaScoreError('PandaScoreAPIError', `fetchTeams(${query})`);
+                    err.message = `Received error response from PandaScore API`;
+                    err.stack = JSON.stringify(data);
+                    err.status = (data as { error: string, status: number }).status;
                     throw err;
                 }
                 const err = new PandaScoreError('UnexpectedResponse', `fetchTeams(${query})`);
@@ -60,7 +72,12 @@ export class PandaScoreRepository {
                 err.reason = 'fetch failed'
                 throw err;
             })
-            .then(response => response.json())
+            .then(response => response.json().catch(error => {
+                const err = error as PandaScoreError;
+                err.thrownBy = `fetchTeams(${query})`;
+                err.reason = 'invalid JSON response';
+                throw err;
+            }))
             .then(data => {
                 if (Array.isArray(data)) {
                     return data as MatchEntity[];
@@ -70,6 +87,13 @@ export class PandaScoreRepository {
                     err.message = `Received response from PandaScore API. Please check your environment variables.`;
                     err.stack = JSON.stringify(data);
                     err.status = 503;
+                    throw err;
+                }
+                if (data as { error: string, status: number }) {
+                    const err = new PandaScoreError('PandaScoreAPIError', `fetchMatches(${query})`);
+                    err.message = `Received error response from PandaScore API`;
+                    err.stack = JSON.stringify(data);
+                    err.status = (data as { error: string, status: number }).status;
                     throw err;
                 }
                 const err = new PandaScoreError('UnexpectedResponse', `fetchMatches(${query})`);
