@@ -1,15 +1,17 @@
 import ecsFormat from "@elastic/ecs-pino-format";
 import pino from "pino";
 import {EnvService} from "@services/envService";
+import packageJson from '~~/package.json';
 
 export class Logger {
     private static _: Logger;
     private readonly logger = pino({
         ...ecsFormat(),
-        name: 'pino@^10.3.1',
+        name: `pino@${packageJson.dependencies.pino}`,
         level: EnvService.instance.get('log.level'),
         base: {
-            'service.tag': EnvService.instance.get('elasticsearch.service.tag')
+            'app.service.tag': EnvService.instance.get('elasticsearch.service.tag'),
+            'app.version': packageJson.version,
         }
     });
 
@@ -23,7 +25,7 @@ export class Logger {
 
     getLogger(serviceName: string) {
         return this.logger.child({
-            'service.name': serviceName
+            'app.service.name': serviceName
         });
     }
 

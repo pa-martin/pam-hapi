@@ -1,11 +1,19 @@
-export class PandaScoreError extends Error {
-    error: string;
+import {AppError} from "@middlewares/exceptions.handler";
 
-    constructor(error: string, message: string) {
-        super(message);
+export class PandaScoreError implements AppError {
+    cause?: unknown;
+    name: string;
+    message: string;
+    reason: string;
+    stack?: string;
+    status?: number;
+    thrownBy: string;
 
-        this.error = error;
+    constructor(reason: string, thrownBy: string, message?: string) {
+        this.message = message || `An error occurred for the reason ${reason}`;
         this.name = 'PandaScoreError';
-        Object.setPrototypeOf(this, PandaScoreError.prototype);
+        this.reason = reason;
+        this.thrownBy = thrownBy;
     }
+
 }

@@ -20,8 +20,42 @@ export class PandaScoreRepository {
      * `search[name]=<team_name>`
      */
     async fetchTeams(query: string): Promise<TeamEntity[]> {
-        const response = await fetch(`${BASE_URL}/teams?${query}`, options);
-        return await response.json() as TeamEntity[];
+        return fetch(`${BASE_URL}/teams?${query}`, options)
+            .catch((error: Error) => {
+                const err = error as PandaScoreError;
+                err.thrownBy = `fetchTeams(${query})`;
+                err.reason = 'fetch failed'
+                throw err;
+            })
+            .then(response => response.json().catch(error => {
+                const err = error as PandaScoreError;
+                err.thrownBy = `fetchTeams(${query})`;
+                err.reason = 'invalid JSON response';
+                throw err;
+            }))
+            .then(data => {
+                if (Array.isArray(data)) {
+                    return data as TeamEntity[];
+                }
+                if (JSON.stringify(data).includes('Invalid credentials')) {
+                    const err = new PandaScoreError('InvalidToken', `fetchTeams(${query})`);
+                    err.message = `Received response from PandaScore API. Please check your environment variables.`;
+                    err.stack = JSON.stringify(data);
+                    err.status = 503;
+                    throw err;
+                }
+                if (data as { error: string, status: number }) {
+                    const err = new PandaScoreError('PandaScoreAPIError', `fetchTeams(${query})`);
+                    err.message = `Received error response from PandaScore API`;
+                    err.stack = JSON.stringify(data);
+                    err.status = (data as { error: string, status: number }).status;
+                    throw err;
+                }
+                const err = new PandaScoreError('UnexpectedResponse', `fetchTeams(${query})`);
+                err.message = `Response data is not an array of TeamEntity`;
+                err.stack = JSON.stringify(data);
+                throw err;
+            });
     }
 
     /**
@@ -31,11 +65,41 @@ export class PandaScoreRepository {
      * @throws {PandaScoreError}
      */
     async fetchMatches(query: string): Promise<MatchEntity[]> {
-        const response = await fetch(`${BASE_URL}/matches?${query}`, options);
-        if (!response.ok) {
-            const body = await response.json() as { error: string, message: string };
-            throw new PandaScoreError(body.error, body.message);
-        }
-        return (await response.json() as MatchEntity[]) ?? [];
+        return fetch(`${BASE_URL}/matches?${query}`, options)
+            .catch((error: Error) => {
+                const err = error as PandaScoreError;
+                err.thrownBy = `fetchMatches(${query})`;
+                err.reason = 'fetch failed'
+                throw err;
+            })
+            .then(response => response.json().catch(error => {
+                const err = error as PandaScoreError;
+                err.thrownBy = `fetchTeams(${query})`;
+                err.reason = 'invalid JSON response';
+                throw err;
+            }))
+            .then(data => {
+                if (Array.isArray(data)) {
+                    return data as MatchEntity[];
+                }
+                if (JSON.stringify(data).includes('Invalid credentials')) {
+                    const err = new PandaScoreError('InvalidToken', `fetchMatches(${query})`);
+                    err.message = `Received response from PandaScore API. Please check your environment variables.`;
+                    err.stack = JSON.stringify(data);
+                    err.status = 503;
+                    throw err;
+                }
+                if (data as { error: string, status: number }) {
+                    const err = new PandaScoreError('PandaScoreAPIError', `fetchMatches(${query})`);
+                    err.message = `Received error response from PandaScore API`;
+                    err.stack = JSON.stringify(data);
+                    err.status = (data as { error: string, status: number }).status;
+                    throw err;
+                }
+                const err = new PandaScoreError('UnexpectedResponse', `fetchMatches(${query})`);
+                err.message = `Response data is not an array of TeamEntity`;
+                err.stack = JSON.stringify(data);
+                throw err;
+            });
     }
 }
