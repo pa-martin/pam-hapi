@@ -12,7 +12,10 @@ export const getHaConf = async (req: Request, res: Response, next: NextFunction)
         const queryParam = qs.parse(qs.stringify(req.query));
         res.json(await service.getHaConf(queryParam.weekday as string));
     } catch (error) {
-        logger.error(`Error fetching HA configuration: ${error instanceof Error ? error.message : String(error)}`);
+        if (error instanceof PandaScoreError) {
+            throw error;
+        }
+        logger.error(`Error fetching HA configuration: ${error instanceof Error ? error.message : JSON.stringify(error)}`);
         const err = new PandaScoreError('HaConfFetchError', 'getHaConf');
         if (error instanceof Error) {
             err.message = `Error fetching HA configuration: ${error.message}`;
